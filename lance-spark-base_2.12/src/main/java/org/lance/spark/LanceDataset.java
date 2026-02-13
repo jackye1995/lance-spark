@@ -100,7 +100,7 @@ public class LanceDataset implements SupportsRead, SupportsWrite, SupportsMetada
   public static final MetadataColumn[] METADATA_COLUMNS =
       new MetadataColumn[] {ROW_ID_COLUMN, ROW_ADDRESS_COLUMN, FRAGMENT_ID_COLUMN};
 
-  private final LanceSparkReadOptions readOptions;
+  protected final LanceSparkReadOptions readOptions;
   protected final StructType sparkSchema;
 
   /**
