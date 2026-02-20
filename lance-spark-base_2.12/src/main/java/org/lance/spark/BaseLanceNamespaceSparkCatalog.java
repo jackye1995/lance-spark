@@ -546,13 +546,13 @@ public abstract class BaseLanceNamespaceSparkCatalog
             Optional.of(tableIdList));
 
     Schema arrowSchema = LanceArrowUtils.toArrowSchema(processedSchema, "UTC", true, false);
-    return new LanceStagedTable(
+    return createStagedDataset(
         readOptions,
         processedSchema,
         initialStorageOptions,
         namespaceImpl,
         namespaceProperties,
-        LanceStagedTable.Operation.CREATE,
+        LanceDataset.StagingOperation.CREATE,
         namespace,
         tableIdList,
         arrowSchema,
@@ -588,13 +588,13 @@ public abstract class BaseLanceNamespaceSparkCatalog
             Optional.of(tableIdList));
 
     Schema arrowSchema = LanceArrowUtils.toArrowSchema(processedSchema, "UTC", true, false);
-    return new LanceStagedTable(
+    return createStagedDataset(
         readOptions,
         processedSchema,
         initialStorageOptions,
         namespaceImpl,
         namespaceProperties,
-        LanceStagedTable.Operation.REPLACE,
+        LanceDataset.StagingOperation.REPLACE,
         namespace,
         tableIdList,
         arrowSchema,
@@ -637,13 +637,13 @@ public abstract class BaseLanceNamespaceSparkCatalog
             Optional.of(tableIdList));
 
     Schema arrowSchema = LanceArrowUtils.toArrowSchema(processedSchema, "UTC", true, false);
-    return new LanceStagedTable(
+    return createStagedDataset(
         readOptions,
         processedSchema,
         initialStorageOptions,
         namespaceImpl,
         namespaceProperties,
-        LanceStagedTable.Operation.CREATE_OR_REPLACE,
+        LanceDataset.StagingOperation.CREATE_OR_REPLACE,
         namespace,
         tableIdList,
         arrowSchema,
@@ -828,4 +828,17 @@ public abstract class BaseLanceNamespaceSparkCatalog
       Map<String, String> initialStorageOptions,
       String namespaceImpl,
       Map<String, String> namespaceProperties);
+
+  public abstract LanceDataset createStagedDataset(
+      LanceSparkReadOptions readOptions,
+      StructType sparkSchema,
+      Map<String, String> initialStorageOptions,
+      String namespaceImpl,
+      Map<String, String> namespaceProperties,
+      LanceDataset.StagingOperation stagingOperation,
+      LanceNamespace stagingNamespace,
+      List<String> tableIdList,
+      Schema arrowSchema,
+      Map<String, String> storageOptions,
+      boolean tableExisted);
 }
